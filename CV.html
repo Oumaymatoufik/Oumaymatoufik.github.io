@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<title>CV</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<meta charset="utf_8">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Raleway+Dots" rel="stylesheet" type="text/css">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<style>
+    .btn-group .button {
+      background-color: #BFC9CA; /* Green */
+      border: 1px solid rgb(160, 176, 206);
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 16px;
+      cursor: pointer;
+      width: 300px;
+      display: block;
+      position: center;
+      box-shadow: 0 4px 8px 0 rgba(76, 90, 102, 0.5), 0 6px 20px 0 rgba(94, 113, 129, 0.19);
+    }
+    
+    .btn-group .button:not(:last-child) {
+      border-bottom: none; /* Prevent double borders */
+    }
+    
+    .btn-group .button:hover {
+      background-color: #98c8e4;
+    }
+    .hr1{
+  border: none;
+  height: 1px;
+  background: black;
+  margin-top: 3px;
+   }
+   h1{
+  color: white;
+   }
+   #progress {
+  background: #8AA19D;
+  border-radius: 13px;
+  height: 8px;
+  width: 50%;
+}
+#progress:after {
+   content: '';
+   display: block;
+   background: #248A7C;
+   width: 70%;
+   height: 100%;
+   border-radius: 9px;
+}
+   #progress1 {
+   background: #8AA19D;
+   border-radius: 13px;
+   height: 8px;
+   width: 50%;
+}
+#progress1:after {
+   content: '';
+   display: block;
+   background: #248A7C;
+   width: 80%;
+   height: 100%;
+   border-radius: 9px;
+}
+// Importing bourbon to make things easy: http://bourbon.io/
+@import "bourbon"
+
+// Useful mixins
+@mixin border-radius($radius: 4px)
+  @include prefixer(border-radius, $radius, webkit moz spec)
+
+@mixin box-sizing($box-model)
+  @include prefixer(box-sizing, $box-model, webkit moz spec)
+    
+//useful for animation
+@include keyframes(fadeInRight)
+  0%
+    opacity: 0
+    @include transform(translateX(1.334em) translateZ(0))
+  100%
+    opacity: 1
+
+@mixin fadeInRight($dur: 1s, $delay: 0s, $fill: forwards)
+  @include prefixer(animation, fadeInRight $dur $delay $fill, webkit spec)
+
+    
+/* General styles */
+
+body
+  background-color: white
+  font-family: 'Lato', Arial, sans-serif
+  text-align: center
+  padding-top: 30px
+  
+h1
+  font-size: 2em
+  color: #666
+  
+h2, a
+  font-size: 1em
+  color: #77cc6d
+  
+.social
+  margin: 60px auto
+  
+/* ============================ */
+/* SOCIAL ICONS                 */
+/* ============================ */
+
+$color-base: #00B285
+$num-buttons: 7
+$speed: 0.6s
+
+.social-icon
+  @include prefixer(background-clip, padding-box, webkit moz spec)
+  @include box-sizing(border-box)
+  @include border-radius(3px)
+
+  @include transition-property(background-color)
+  @include transition-duration(0.5s)
+  @include transition-timing-function(ease)
+
+  background-color: #c4c4c4
+  text-align: center
+  display: inline-block
+  width: 40px
+  height: 38px
+  padding: 9px 0px
+  color: white
+  margin: 2px
+  
+  /* Color each button differently */
+  @for $i from 1 through $num-buttons
+    &:nth-child(#{$i})
+      /* Animation */
+      @include fadeInRight($speed, ($i/4) * 1s )
+      opacity: 0
+      /* Color */
+      &:hover,
+      &:active,
+      &:focus
+        opacity: 1
+        background-color: adjust-hue( $color-base, $i * 7%)
+  
+  img
+    width: 20px
+    
+/* ============================ */
+/* TOOLTIP                      */
+/* ============================ */
+
+$tooltip-height: 22px
+$tooltip-arrow-size: 5px
+$tooltip-color: #323232
+$tooltip-color-text: #ecf0f1
+
+[data-tooltip]
+  position: relative
+  
+  &:before,
+  &:after
+    @include transform(translateX(-50%))
+    @include box-sizing(content-box)
+    @include position(absolute, 100% null null 50%)
+    
+    @include transition-property(opacity)
+    @include transition-duration(0.2s)
+    @include transition-timing-function(linear)
+      
+    position: absolute
+    left: 50%
+    top: 100%
+    bottom: 100%
+    visibility: hidden
+    opacity: 0
+    z-index: 9999
+    // Force Hardware Acceleration
+    -webkit-transform: translate3d(0, 0, 0)
+    -moz-transform: translate3d(0, 0, 0)
+    transform: translate3d(0, 0, 0)
+    
+  /* tooltip arrow */   
+  &:before
+    content: ''
+    border-color: $tooltip-color
+    border-style: none
+    border: $tooltip-arrow-size solid transparent
+    border-bottom: $tooltip-arrow-size +1px solid $tooltip-color
+    margin-top: $tooltip-arrow-size * -1 + 1
+
+  /* tooltip box */
+  &:after
+    content: attr(data-tooltip)
+    @include border-radius(3px)
+    width: auto
+    height: $tooltip-height
+    padding: $tooltip-height/2 $tooltip-height/2 0 $tooltip-height/2
+    font-size: 13px
+    line-height: $tooltip-height/2
+    white-space: nowrap
+    background-color: $tooltip-color
+    color: $tooltip-color-text
+    margin-top: 7px
+      
+  &:hover,
+  &:focus
+    background-color: transparent
+    &:before,
+    &:after
+      @include transform(translate(-50%, 0))
+      opacity: 1
+      visibility: visible
+    </style>
+<body>
+
+<!-- First Grid: Logo & About -->
+<div class="w3-row">
+  <div class="w3-half w3-light-grey w3-center" style="height:600px">
+    <div class="social">
+<a class="social-icon" data-tooltip="Facebook" href="https://www.facebook.com/oumayma.tf.52">
+<i class="fa fa-facebook" aria-hidden="true"></i>
+</a>
+<a class="social-icon" data-tooltip="LinkedIn" href="https://www.linkedin.com/company/colorlib">
+<i class="fa fa-linkedin" aria-hidden="true"></i>
+</a>
+<a class="social-icon" data-tooltip="GitHub" href="https://github.com/puikinsh">
+<i class="fa fa-github" aria-hidden="true"></i>
+</a>
+<a class="social-icon" data-tooltip="Twitter" href="https://twitter.com/colorlib">
+<i class="fa fa-twitter" aria-hidden="true"></i>
+</a>
+<a class="social-icon" data-tooltip="YouTube" href="https://instagram.com/Colorlib">
+  <i class="fa fa-instagram" aria-hidden="true"></i>
+</a>
+
+</div>
+    <hr class="hr1">
+       <div class="btn-group">
+        <button class="button "  type="button" onclick='document.getElementById("A").innerHTML ="<h3>  2016-2018 </h3>"+"<p> LYCEE IBN KHALDOUN:Sciences physiques </P>"+
+                "<h3>  2018-2019 </h3>"+"<p>  APESA </P>"+"<h3>  2019-2023 </h3>"+
+                "<p> INSTITUT AGRONOMIQUE EY VÉTÉRINAIRE HASSAN II SCIENCES GÉOMATIQUES ET INGÉNIERIE TOPOGRAPHIQE  </P>"+
+      "<h3>2022</h3> "+ 
+      "<p> droit Francais-FES </P>  "'>Education</button>
+              <button class="button "  type="button" onclick='document.getElementById("A").innerHTML =
+                "<h3>juin 2019</h3>"+
+                "<h5>STAGE DE DÉCOUVERTE DE LA NATUR APESA </h5> "+
+                "<h3>juin 2020 - juillet 2020</h3>"+
+                "<h5>STAGE:SOCIETE GEOLAMBERT-FES </h5> "+
+                "<h3>Mai 2022</h3>"+
+                "<h5>STAGE DE PROFESSIONNALISATION :IAV HASSAN II </h5>"+"<h3> Septembre 2022</h3>"+
+                "<h5>STAGE ANCFCC </h5> "
+                 + "<h3>2023</h3>"+"<h5>Stage Entreprise </h5> "'>Stage école/entreprise</button>
+              <button class="button " type="button" onclick='document.getElementById("A").innerHTML ="<p>PYTON</p>"+"<p>MATLAB</p>"+"<p>SQL</p>"+"<p>Machine learning</p>"+"<p>HTML</p>"+"<p>CSS</p>"+"<p>JAVASCRIPT</p>"'>Connaissance informatique</button>
+              <button class="button "  type="button" onclick='document.getElementById("A").innerHTML ="<h3 >Professionnelle</h3>"+
+    "<p> Microsoft office </P>"+
+    "<p> PHOTOSHOP</P>"+
+    "<p> ILLUSTRATOR </P>"+
+    "<p> SKETCHUP </P>"+
+      "<p>AUTOCAD </P>"+ "<p>COVADIS</P>"+"<p>QGIS</P>"+
+        "<p>ARCGIS</P>"+ 
+          "<p>ERDAS</P>"+
+    "<h3>Personnelle</h3>"+
+    "<p> Sérieuse </P>"+
+    "<p> Créative </P>"+
+    "<p> Organisée </P>"+ "<p> Travail en équipe  </P>"'>Compétences</button>
+              <button class="button " type="button" onclick='document.getElementById("A").innerHTML ="<p>Géodésie</p>"+"<p>Photogrammétrie</p>"+"<p>Lasergrammétrie</p>"+"<p>Cartographie</p>"+"<p>Voyage</p>"+"<p>Randonnée</p>"+"<p>Missions hummanitaires</p>"+"<p>Sports</p>"'>Centre d'intéret</button>
+      </div>
+      <div id="A" style="background-color: rgb(182, 220, 231)"> 
+        <br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br>
+        </div>
+     </div>
+  <div class="w3-half w3-light-blue w3-container"  style="opacity: 0.9" style="height:600px">
+    <div class="w3-padding-64 w3-center">
+      <h2>TOUFIK OUMAYMA</h2>
+      <h4>Etudiante en 3 CI en sciences géomatiques et ingénierie Topographiqe IAV HASSAN II.</h4>
+      <img src="img.jpg" class="w3-margin w3-circle" alt="Person"  style="width:20%" >
+      <h3 style="color: #68918C">PROFIL ET OBJECTIFS</h3>
+    <hr class="hr1">
+      <h5>Ingénieur en sciences géomatiques et ingénierie topographique,
+        mes différentes expériences au niveau des stages  m'ont appris à faire preuve d'une grande rigueur.
+        Je suis à la recherche d'un défi et saurai valoriser mes compétences 
+        et faire preuve d'innovation pour conquérir de nouveaux marchés.</h5>
+        <div class="w3-col s6 w3-light-blue w3-center">
+          <h3 style="color: #68918C">CONTACT</h3>
+          <hr class="hr1"> 
+          <i class="glyphicon glyphicon-envelope" style="font-size:20px"></i>oumaymatoufik2000@gmail.com<br><br>
+          <i class="material-icons" style="font-size:20px">&#xe0cd</i>0626532494<br><br>
+          <i class="material-icons" style="font-size:20px">&#xe55f;</i>Maroc,Hay Sidi Ali Karia Ba Mohamed
+      <div class="clearfix"></div> 
+    <div class="clearfix"></div>  
+        </div>
+        <div class="w3-col s6 w3-light-blue w3-center">
+          <h3 style="color: #68918C">LANGUES</h3>
+  <hr class="hr1">
+  <p class="p2">Arabe</p> 
+  <div id="progress1"></div> 
+  <p class="p2">Francais</p>
+  <div id="progress"></div> 
+  <p class="p2">Anglais</p> 
+  <div id="progress1"></div>
+<br><br><br><br> <br><br> 
+</div> 
+</div>
+</div>
+
+</div>
+</div>
+</body>
+</html> 
